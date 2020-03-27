@@ -1,4 +1,4 @@
-package ba.unsa.etf.rs.tut4;
+/*package ba.unsa.etf.rs.tut4;
 
 import org.junit.jupiter.api.Test;
 
@@ -140,4 +140,4 @@ class ArtikalTest {
         assertFalse(lista.contains(new Artikal("ABC", "Usluga", 100)));
         assertFalse(lista.contains(new Artikal("DEF", "Usluga", 100)));
     }
-}
+}*/
