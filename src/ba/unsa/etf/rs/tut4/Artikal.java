@@ -1,55 +1,68 @@
 package ba.unsa.etf.rs.tut4;
-
-import javax.swing.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class Artikal {
-
     private String sifra;
     private String naziv;
     private double cijena;
-    public static void izbaciDuplikate(ArrayList<Artikal> artikal){
 
+
+    public Artikal(String unos) {
+
+        String[] atributi;
+        String[]  red=unos.split("\n");
+        for(int i=0; i<red.length; i++)
+        {
+            atributi = red[i].split(",");
+            setSifra(atributi[0]);
+            setNaziv(atributi[1]);
+            setCijena(Double.parseDouble(atributi[2]));
+        }
     }
 
-    public Artikal(String artikal) {
-    String[] attribs = artikal.split(   ",");
-    sifra = attribs[0];
-    naziv = attribs[1];
-    cijena = Double.parseDouble(attribs[2]);
 
+
+    public Artikal(String abc, String proizvod, double i) {
+        setSifra(abc);
+        setNaziv(proizvod);
+        setCijena(i);
     }
+
+    public static void izbaciDuplikate(ArrayList<Artikal> proizvodi){
+        for(int i=0;i<proizvodi.size();i++){
+            for(int j=i+1;j<proizvodi.size();j++)
+                if(proizvodi.get(i).equals(proizvodi.get(j))){
+                    proizvodi.remove(j);
+                    j--;
+                }
+        }
+    }
+
     public String getSifra() {
         return sifra;
+    }
+
+    public void setSifra(String sifra) {
+        if(sifra.isEmpty()) throw new IllegalArgumentException("Šifra je prazna");
+        this.sifra = sifra;
     }
 
     public String getNaziv() {
         return naziv;
     }
 
+    public void setNaziv(String naziv) {
+        if(naziv.isEmpty()) throw new IllegalArgumentException("Naziv je prazan");
+        this.naziv = naziv;
+    }
+
     public double getCijena() {
         return cijena;
     }
 
-    public void setSifra(String sifra) {
-
-        if(sifra.isEmpty()){
-            throw new IllegalArgumentException("Šifra je prazna!");
-        }
-        this.sifra = sifra;
-    }
-
-    public void setNaziv(String naziv) {
-
-        this.naziv = naziv;
-    }
-
     public void setCijena(double cijena) {
-
-        if(cijena<0) {
-            throw new IllegalArgumentException("Cijena je negativna!");
-        }
+        if(cijena<0) throw new IllegalArgumentException("Cijena je negativna");
         this.cijena = cijena;
     }
 
@@ -63,6 +76,17 @@ public class Artikal {
         if (Double.compare(artikal.cijena, cijena) != 0) return false;
         if (sifra != null ? !sifra.equals(artikal.sifra) : artikal.sifra != null) return false;
         return naziv != null ? naziv.equals(artikal.naziv) : artikal.naziv == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = sifra != null ? sifra.hashCode() : 0;
+        result = 31 * result + (naziv != null ? naziv.hashCode() : 0);
+        temp = Double.doubleToLongBits(cijena);
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        return result;
     }
 
 

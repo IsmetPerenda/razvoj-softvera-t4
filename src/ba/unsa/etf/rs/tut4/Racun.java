@@ -3,51 +3,27 @@ package ba.unsa.etf.rs.tut4;
 import java.util.ArrayList;
 
 public class Racun {
+    private  ArrayList<Artikal> artikli=new ArrayList<>();
+    private  ArrayList<Integer> kolicine=new ArrayList<>();
 
-     class StavkaRacuna{
-        private ArrayList<Artikal> artikal;
-        private Integer kolicina;
+    public Racun(){}
 
-        public StavkaRacuna(ArrayList<Artikal> artikal, Integer kolicina) {
-            this.artikal = artikal;
-            this.kolicina = kolicina;
-        }
-
-         public StavkaRacuna(Artikal artikal, int i) {
-
-         }
-
-         public ArrayList<Artikal> getArtikli() {
-            return artikal;
-        }
-
-        public void setArtikli(ArrayList<Artikal> artikli) {
-            this.artikal = artikli;
-        }
-
-        public Integer getKolicina() {
-            return kolicina;
-        }
-
-        public void setKolicina(Integer kolicina) {
-            this.kolicina = kolicina;
-        }
+    public void dodajStavku(Artikal artikal, int i) {
+        setArtikal(artikal);
+        setKolicina(i);
     }
-    private ArrayList<StavkaRacuna> stavkaRacuna = new ArrayList<>();
-    public void dodajStavku(Artikal artikal, int i){
-    stavkaRacuna.add(new StavkaRacuna(artikal, i));
 
-    }
-    public double ukupanIznos(){
-        double suma = 0;
-        for (StavkaRacuna racuna : stavkaRacuna) {
-            suma = suma + racuna.getKolicina();
-        }
+    public double ukupanIznos() {
+        double suma=0;
+        for(int i=0; i<artikli.size(); i++) suma+=artikli.get(i).getCijena()*kolicine.get(i);
         return suma;
     }
 
-    public void dodajStavku(){
+    private  void setArtikal(Artikal artikal)  {
+        artikli.add(artikal);
+    }
 
+    private void setKolicina(Integer kolicina) {
+        kolicine.add(kolicina);
     }
 }
-
